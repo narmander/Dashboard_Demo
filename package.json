@@ -1,0 +1,31 @@
+{
+	"name": "holocene",
+	"version": "1.0.0",
+	"description": "dashboard analytics",
+	"main": "index.js",
+	"scripts": {
+		"build": "webpack",
+		"webpack-dev-server": "webpack-dev-server",
+		"start": "npm run webpack-dev-server -- --env.mode development --hot --open",
+		"test": "jest"
+	},
+	"author": "Nar Shahin",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/register": "^7.9.0",
+		"babel-loader": "^8.1.0",
+		"html-webpack-plugin": "^4.3.0",
+		"webpack": "^4.43.0",
+		"webpack-cli": "^3.3.11",
+		"webpack-dev-server": "^3.11.0"
+	},
+	"dependencies": {
+		"path": "^0.12.7",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"styled-components": "^5.1.0"
+	}
+}
