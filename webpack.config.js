@@ -33,4 +33,7 @@ module.exports = {
 		},
 		extensions: ['.js', '.jsx'],
 	},
+	externals: {
+		moment: 'moment',
+	},
 };

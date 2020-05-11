@@ -9,13 +9,13 @@ export const Form = ({
 	value,
 	...props
 }) => {
-	const useForm = callback => {
+	const useForm = submissionActionCallback => {
 		const [inputs, setInputs] = useState({});
 
 		const handleSubmit = event => {
 			event.preventDefault();
 
-			callback(inputs);
+			submissionActionCallback(inputs);
 		};
 
 		const handleInputChange = event => {

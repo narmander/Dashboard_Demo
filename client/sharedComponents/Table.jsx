@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-export const Table = ({ headerLabels = [], cellData = [], ...props }) => {
+export const Table = ({ headerLabels = [], cellData = [[]], ...props }) => {
 	return (
 		<div className='table-container'>
 			{headerLabels.map((label, headerIndex) => {
