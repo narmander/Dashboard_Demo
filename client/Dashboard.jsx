@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import { Loading } from 'SharedComponents/Loading';
 import { Table } from 'SharedComponents/Table';
 import { Form } from 'SharedComponents/Form';
-import { LineChart } from 'SharedComponents/LineChart';
+import LineChart from 'SharedComponents/LineChart';
 import { DATABASE, SEED_DATA } from 'Utils';
 
 export const Dashboard = () => {
@@ -12,6 +12,7 @@ export const Dashboard = () => {
 	const dataSetCoordinates = Object.keys(dataSet[0]);
 	const dataSetValues = dataSet.map(set => Object.values(set));
 	const config = createConfig();
+	let lineChartRef = useRef(null);
 
 	useEffect(() => {
 		if (!localStorage.hasOwnProperty(DATABASE)) {
@@ -24,7 +25,12 @@ export const Dashboard = () => {
 		const database = JSON.parse(localStorage[DATABASE]);
 		database.push(entries);
 		updateData(database);
+		console.log(lineChartRef);
 		localStorage.setItem(DATABASE, JSON.stringify(database));
+	}
+
+	function updateChart() {
+
 	}
 
 	function createConfig() {
@@ -58,7 +64,7 @@ export const Dashboard = () => {
 							<h1>Summary Overview</h1>
 							<button>Download CSV </button>
 						</header>
-						<LineChart config={config} />
+						<LineChart config={config} updateAction={updateChart} ref={lineChartRef} />
 					</div>
 					<div className='side-panel'>
 						<Table cellData={dataSetValues} headerLabels={dataSetCoordinates} />
@@ -68,7 +74,7 @@ export const Dashboard = () => {
 							submissionButtonText='enter data'
 							type='number'
 						/>
-					</div>{' '}
+					</div>
 				</>
 			) : (
 				<Loading />
