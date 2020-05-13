@@ -1,22 +1,27 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import Chart from 'chart.js';
+import { range } from 'lodash';
+
+import { findMinMax, OFFSET } from 'Utils';
 
 export const LineChart = ({ config, data, dataSetLabels, ...props }) => {
 	const [chartInstance, setChartInstance] = useState(null);
 	let chartContainer = useRef(null);
+	const bounds = findMinMax(data, 'x');
 
 	useEffect(() => {
 		createLineChart();
 
 		async function createConfig() {
 			const formattedDataSets = await dataFormatter();
+			const labels = await generateLabels();
 
 			return {
-				type: 'scatter',
-				label: 'Holocene Data',
+				type: 'line',
+				// label: 'Holocene Data', add generic Title for dynamic
 				data: {
-					labels: [0, 0.5, 1, 1.5, 2, 2.5, 3],
+					labels, // same here. make reusable
 					datasets: formattedDataSets,
 				},
 			};
@@ -31,26 +36,33 @@ export const LineChart = ({ config, data, dataSetLabels, ...props }) => {
 
 	useEffect(() => {
 		if (chartInstance) {
+			chartInstance.config.data.labels = generateLabels();
 			chartInstance.config.data.datasets = dataFormatter();
 			chartInstance.update();
 		}
 	}, [data]);
 
 	function dataFormatter() {
-		const updatedDataList = dataSetLabels.slice(1).map(label => {
-			const formattedData = [];
+		const formattedData = dataSetLabels.slice(1).map(label => {
+			const formattedSet = [];
+
 			data.forEach(set => {
-				formattedData.push({ x: set.x, y: set[label] });
+				formattedSet.push({ x: set.x, y: set[label] });
 			});
 
 			return {
 				label,
-				data: formattedData,
+				fill: false,
+				data: formattedSet.sort((curr, next) => curr.x - next.x),
 			};
 		});
 
-		return updatedDataList;
+		return formattedData;
 	}
+
+	function generateLabels() {
+		return range(bounds.min, bounds.max + OFFSET, OFFSET);
+	};
 
 	return (
 		<div className='line-chart-container'>

@@ -23,3 +23,5 @@ export const Table = ({ headerLabels = [], cellData = [[]], ...props }) => {
 		</div>
 	);
 };
+
+// add delete row option

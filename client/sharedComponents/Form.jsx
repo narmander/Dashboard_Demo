@@ -20,7 +20,7 @@ export const Form = ({
 
 		const handleInputChange = event => {
 			event.persist();
-			console.log(Number(event.target.value))
+
 			setInputs(inputs => ({
 				...inputs,
 				[event.target.name]: Number(event.target.value),

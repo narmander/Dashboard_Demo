@@ -2,6 +2,7 @@ import { minBy, maxBy, sortBy } from 'lodash';
 
 // CONSTANTS
 export const DATABASE = 'DATABASE';
+export const OFFSET = 0.5;
 
 // DEFAULTS
 export const SEED_DATA = [
@@ -22,21 +23,8 @@ export const findMinMax = (objects, key) => {
 	return { min: min[key], max: max[key] };
 };
 
-export const sortData = () => {
-
-}
-
 // generate a dataset object
 // add to each dataset's object data array until complete
 
 // make utils
 // make reusable button component
-
-// const y1 = findMinMax(coordinates, 'y1');
-	// const y2 = findMinMax(coordinates, 'y2');
-	// const yBounds = {
-	// 	max: Math.max(y1.max, y2.max),
-	// 	min: Math.min(y1.min, y2.min),
-	// range(xBounds.min, xBounds.max, 5)
-	// };
-	// const xBounds = findMinMax(coordinates, 'x');
