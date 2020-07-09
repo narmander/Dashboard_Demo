@@ -23,8 +23,11 @@ export const findMinMax = (objects, key) => {
 	return { min: min[key], max: max[key] };
 };
 
-// generate a dataset object
-// add to each dataset's object data array until complete
-
-// make utils
-// make reusable button component
+export const getRandomColorHex = () => {
+	var hex = '0123456789ABCDEF',
+		color = '#';
+	for (var i = 1; i <= 6; i++) {
+		color += hex[Math.floor(Math.random() * 16)];
+	}
+	return color;
+};

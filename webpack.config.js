@@ -30,6 +30,7 @@ module.exports = {
 		alias: {
 			SharedComponents: path.resolve(__dirname, 'client/sharedComponents'),
 			Utils: path.resolve(__dirname, 'client/utils'),
+			Styles: path.resolve(__dirname, 'client/styles'),
 		},
 		extensions: ['.js', '.jsx'],
 	},
