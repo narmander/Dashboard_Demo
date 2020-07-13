@@ -19,7 +19,6 @@ export const CSVButton = ({ headerLabels = [], cellData = [[]] }) => {
 				ctr++;
 			}
             result += '\n';
-            updateCSV(result);
 		});
 		updateCSV(result);
 	}, [cellData]);
