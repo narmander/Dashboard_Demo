@@ -5,6 +5,7 @@ import { Loading } from 'SharedComponents/Loading';
 import { Table } from 'SharedComponents/Table';
 import { Form } from 'SharedComponents/Form';
 import { LineChart } from 'SharedComponents/LineChart';
+import { ListedDataChart } from 'SharedComponents/ListedDataChart';
 import { CSVButton } from 'SharedComponents/CSVButton';
 import { DATABASE, SEED_DATA } from 'Utils';
 import { GlobalStyles } from 'Styles/globalStyles';
@@ -12,7 +13,7 @@ import { DARKEST_TEAL } from 'Styles/themes';
 
 export const Dashboard = () => {
 	const [dataSet, updateData] = useState([{}]);
-	const dataSetCoordinates = Object.keys(dataSet[0]);
+	const dataSetCategories = Object.keys(dataSet[0]);
 	const dataSetValues = dataSet.map(set => Object.values(set));
 
 	useEffect(() => {
@@ -34,18 +35,18 @@ export const Dashboard = () => {
 		<DashboardStyles>
 			<GlobalStyles />
 			<div className='dashboard-container'>
-				{dataSetCoordinates.length ? (
+				{dataSetCategories.length ? (
 					<>
 						<div className='header'>
 							<header>
 								<h1>Summary Overview</h1>
-								<CSVButton />
+								<CSVButton headerLabels={dataSetCategories} cellData={dataSet} />
 							</header>
 						</div>
 						<div className='top-panel'>
 							<div className='form-container'>
 								<Form
-									fields={dataSetCoordinates}
+									fields={dataSetCategories}
 									submissionAction={updateDatabase}
 									submissionButtonText='enter data ↵'
 									type='number'
@@ -54,7 +55,8 @@ export const Dashboard = () => {
 							<div className='top-graph-container'>
 								<LineChart
 									data={dataSet}
-									dataSetCoordinates={dataSetCoordinates}
+									dataSetCategories={dataSetCategories}
+									type='line'
 								/>
 							</div>
 						</div>
@@ -63,28 +65,31 @@ export const Dashboard = () => {
 								<div className='graph'>
 									<Table
 										cellData={dataSetValues}
-										headerLabels={dataSetCoordinates}
+										headerLabels={dataSetCategories}
 									/>
 								</div>
 								<div className='graph'>
-									<LineChart
+									<ListedDataChart
 										data={dataSet}
-										dataSetCoordinates={dataSetCoordinates}
+										dataSetCategories={dataSetCategories}
+										type='pie'
 									/>
 								</div>
 							</div>
 
 							<div className='bottom-graph-container'>
 								<div className='graph'>
-									<LineChart
+									<ListedDataChart
 										data={dataSet}
-										dataSetCoordinates={dataSetCoordinates}
+										dataSetCategories={dataSetCategories}
+										type='bar'
 									/>
 								</div>
 								<div className='graph'>
 									<LineChart
 										data={dataSet}
-										dataSetCoordinates={dataSetCoordinates}
+										dataSetCategories={dataSetCategories}
+										type='scatter'
 									/>
 								</div>
 							</div>
@@ -152,7 +157,7 @@ export const DashboardStyles = styled.div`
 	.top-graph-container {
 		min-width: 60%;
 		width: 50%;
-		
+
 		@media (min-width: 800px) {
 			width: 70%;
 		}

@@ -8,7 +8,6 @@ import {
 	BLURRY_LIGHT_TEAL,
 	DARKER_TEAL,
 	DARKEST_TEAL,
-	GREY,
 	PRIMARY_DARK_TEAL,
 	PRIMARY_LIGHT_TEAL,
 	RED,
@@ -17,7 +16,7 @@ import {
 export const LineChart = ({
 	config,
 	data,
-	dataSetCoordinates,
+	dataSetCategories,
 	colorScheme = [
 		PRIMARY_LIGHT_TEAL,
 		RED,
@@ -26,6 +25,7 @@ export const LineChart = ({
 		DARKER_TEAL,
 		DARKEST_TEAL,
 	],
+	type,
 	...props
 }) => {
 	const [chartInstance, setChartInstance] = useState(null);
@@ -49,7 +49,7 @@ export const LineChart = ({
 			const formattedDataSets = await dataFormatter();
 
 			return {
-				type: 'line',
+				type,
 				data: {
 					labels,
 					datasets: formattedDataSets,
@@ -57,7 +57,7 @@ export const LineChart = ({
 				options: {
 					title: {
 						display: true,
-						text: 'Holocene Data',
+						text: 'Data Results',
 					},
 				},
 			};
@@ -71,7 +71,7 @@ export const LineChart = ({
 	}, []);
 
 	function dataFormatter() {
-		const formattedData = dataSetCoordinates.slice(1).map((label, i) => {
+		const formattedData = dataSetCategories.slice(1).map((label, i) => {
 			const formattedSet = [];
 
 			data.forEach(set => {
