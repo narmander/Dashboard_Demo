@@ -14,7 +14,6 @@ import { DARKEST_TEAL } from 'Styles/themes';
 export const Dashboard = () => {
 	const [dataSet, updateData] = useState([{}]);
 	const dataSetCategories = Object.keys(dataSet[0]);
-	const dataSetValues = dataSet.map(set => Object.values(set));
 
 	useEffect(() => {
 		// create inital database
@@ -40,7 +39,7 @@ export const Dashboard = () => {
 						<div className='header'>
 							<header>
 								<h1>Summary Overview</h1>
-								<CSVButton headerLabels={dataSetCategories} cellData={dataSet} />
+								<CSVButton cellData={dataSet} />
 							</header>
 						</div>
 						<div className='top-panel'>
@@ -64,8 +63,7 @@ export const Dashboard = () => {
 							<div className='bottom-graph-container'>
 								<div className='graph'>
 									<Table
-										cellData={dataSetValues}
-										headerLabels={dataSetCategories}
+										cellData={dataSet}
 									/>
 								</div>
 								<div className='graph'>

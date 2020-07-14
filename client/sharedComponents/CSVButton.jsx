@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ORANGE, WHITE, OFF_WHITE } from 'Styles/themes';
 
-export const CSVButton = ({ headerLabels = [], cellData = [[]] }) => {
+export const CSVButton = ({ cellData = [[]] }) => {
 	const [CSV, updateCSV] = useState('data:text/csv;charset=utf-8,');
 
 	useEffect(() => {
 		let result = CSV;
 		let ctr = 0;
-		result += headerLabels.join(',');
+		result += Object.keys(cellData).join(',');
 		result += '\n';
 
 		cellData.forEach(item => {
@@ -20,7 +20,7 @@ export const CSVButton = ({ headerLabels = [], cellData = [[]] }) => {
 			}
             result += '\n';
 		});
-		updateCSV(result);
+		updateCSV(encodeURI(result));
 	}, [cellData]);
 
 	return (

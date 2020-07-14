@@ -9,11 +9,12 @@ import {
 } from 'Styles/themes';
 import { DARK_TEAL } from '../styles/themes';
 
-export const Table = ({ headerLabels = [], cellData = [[]], ...props }) => {
+export const Table = ({ cellData = [[]], ...props }) => {
+	const dataSetValues = cellData.map(set => Object.values(set));
 	return (
 		<TableStyles className='table-container'>
 			<div className='table-header'>
-				{headerLabels.map((label, headerIndex) => {
+				{Object.keys(cellData).map((label, headerIndex) => {
 					return (
 						<div className='table-header-cell' key={headerIndex}>
 							<h4>{label}</h4>
@@ -22,7 +23,7 @@ export const Table = ({ headerLabels = [], cellData = [[]], ...props }) => {
 				})}
 			</div>
 
-			{cellData.map((row, rowIndex) => {
+			{dataSetValues.map((row, rowIndex) => {
 				return (
 					<div className='table-row' key={rowIndex}>
 						{row.map((cell, cellIndex) => {
